@@ -1,3 +1,8 @@
 Django==4.0.3
 djangorestframework==3.13.1
 djangorestframework-jwt==1.11.0
+flake8==4.0.1
+pylint==2.13.5
+pylint-django==3.9.0
+pytest==7.1.1
+pytest-django==4.5.2
