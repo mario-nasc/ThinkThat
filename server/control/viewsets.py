@@ -1,8 +1,11 @@
 from django.contrib.auth.models import User
 from rest_framework_jwt.settings import api_settings
 from rest_framework import viewsets, status
+from rest_framework.permissions import AllowAny
+
 from rest_framework.response import Response
 
+from .serializers import LoginSerializer
 
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
@@ -10,9 +13,11 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 class UserViewSet(viewsets.ViewSet):
 
+    permission_classes = (AllowAny,)
+
     def login(self, request):
         login_serializer = LoginSerializer(data=request.data)
-        login_serializer.is_valid(raise_exceptions=True)
+        login_serializer.is_valid(raise_exception=True)
         user = User.objects.filter(
             username=login_serializer.validated_data['username'],
             password=login_serializer.validated_data['password']).first()
